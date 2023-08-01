@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+        <body>
+            <div class="dropdown">
+                <select id="dropdownSelect">
+                  <option value="option1"></option>
+                </select>
+            </div>
+        <template id="card-item">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text"></p>
+                </div>
+              </div>
+        </template>
+        <div id="card-container">
+        </div>
+            <script>
+            const categorySelector = document.getElementById('dropdownSelect')
+            let products = []
+            function displayCards(result){
+                result.forEach(element => {
+                    const template = document.getElementById('card-item').content.cloneNode(true)
+                    template.querySelector(".card-title").innerText = element.title
+                    template.querySelector(".card-text").innerText = element.description
+                    template.querySelector(".card-img-top").setAttribute("src",element.image)
+                    document.getElementById("card-container").appendChild(template)        
+                });
+            }
+            function removeChildElements(parent){
+                while(parent.firstChild){
+                    parent.lastChild.remove()
+                }
+            }
+                fetch('https://fakestoreapi.com/products?limit=10')
+            .then(Response=>Response.json())
+            .then(result =>{
+                products = result
+                displayCards(result)
+            const categories = Array.from(new Set(result.map(item => item.category)))
+            categories.forEach(category => {
+                const option = document.createElement("option")
+                option.setAttribute('value',category)
+                option.innerText = category
+                categorySelector.appendChild(option)
+            })
+            })
+            categorySelector.addEventListener('change',function(){
+                removeChildElements(document.getElementById('card-container'))
+                const data = products.filter(product => product.category === categorySelector.value)
+                displayCards(data)
+            })
+            </script>   
+        </body>
+</html>
