@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Comparison</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+<body>
+    <div>
+        <h1>Date Comparison</h1>
+        <p id="comparisonResult"></p>
+    </div>
+
+    <script>
+        // example dates
+        const date1 = moment('2023-08-01');
+        const date2 = moment('2023-08-15');
+        const comparison = date1.isBefore(date2) ? 'before' : 'after';
+        const resultElement = document.getElementById('comparisonResult');
+        resultElement.textContent = `Date 1 is ${comparison} Date 2`;
+    </script>
+</body>
+</html>

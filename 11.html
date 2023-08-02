@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+<body>
+    <div>
+        <h1>Age Calculator</h1>
+        <p id="ageResult"></p>
+    </div>
+
+    <script>
+        const birthdate = moment('1996-06-01');
+        const currentDate = moment();
+        const years = currentDate.diff(birthdate, 'years');
+        const months = currentDate.diff(birthdate, 'months') % 12;
+        const days = currentDate.diff(birthdate, 'days') % 30;
+
+        const resultElement = document.getElementById('ageResult');
+        resultElement.textContent = `Your age is: ${years} years, ${months} months, and ${days} days`;
+    </script>
+</body>
+</html>

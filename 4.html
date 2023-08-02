@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .calculator {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 48%;
+            padding: 10px;
+            margin: 5px 1%;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .result {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="number" id="num1" placeholder="Enter first number" />
+        <input type="number" id="num2" placeholder="Enter second number" />
+        <div>
+            <button id="add">+</button>
+            <button id="subtract">-</button>
+            <button id="multiply">x</button>
+            <button id="divide">/</button>
+        </div>
+        <button id="calculate">Calculate</button>
+        <button id="reset">Reset</button>
+        <div class="result" id="result"></div>
+    </div>
+    <script>
+        const num1Input = document.getElementById("num1");
+        const num2Input = document.getElementById("num2");
+        const addButton = document.getElementById("add");
+        const subtractButton = document.getElementById("subtract");
+        const multiplyButton = document.getElementById("multiply");
+        const divideButton = document.getElementById("divide");
+        const calculateButton = document.getElementById("calculate");
+        const resetButton = document.getElementById("reset");
+        const resultElement = document.getElementById("result");
+
+        addButton.addEventListener("click", () => performOperation("+"));
+        subtractButton.addEventListener("click", () => performOperation("-"));
+        multiplyButton.addEventListener("click", () => performOperation("x"));
+        divideButton.addEventListener("click", () => performOperation("/"));
+        calculateButton.addEventListener("click", calculateResult);
+        resetButton.addEventListener("click", resetCalculator);
+
+        let operation = "";
+
+        function performOperation(operator) {
+            operation = operator;
+        }
+
+        function calculateResult() {
+            const num1 = parseFloat(num1Input.value);
+            const num2 = parseFloat(num2Input.value);
+            let result = 0;
+
+            switch (operation) {
+                case "+":
+                    result = num1 + num2;
+                    break;
+                case "-":
+                    result = num1 - num2;
+                    break;
+                case "x":
+                    result = num1 * num2;
+                    break;
+                case "/":
+                    result = num1 / num2;
+                    break;
+            }
+
+            resultElement.textContent = `Result: ${result}`;
+        }
+
+        function resetCalculator() {
+            num1Input.value = "";
+            num2Input.value = "";
+            resultElement.textContent = "";
+            operation = "";
+        }
+    </script>
+</body>
+</html>
